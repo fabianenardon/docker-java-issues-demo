@@ -5,6 +5,8 @@ import java.util.Map;
 
 /**
  *
+ * Just something to use memory and display how much is used.
+ * 
  * @author fabiane
  */
 public class App {
@@ -20,18 +22,15 @@ public class App {
             long free = rt.freeMemory();
             if (total != prevTotal || free != prevFree) {
                 long used = total - free;
-                long prevUsed = (prevTotal - prevFree);
                 System.out.println(
                         "#" + i
                         + ", Total: " + total
                         + ", Used: " + used
-                     //   + ", ∆Used: " + (used - prevUsed)
                         + ", Free: " + free);
-                     //   + ", ∆Free: " + (free - prevFree));
                 prevTotal = total;
                 prevFree = free;
             }
-            map.put(i, "abcdefghijklmnopqrstuvwz");
+            map.put(i, "some string, just to use memory");
         }
     }
 
