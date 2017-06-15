@@ -3,8 +3,8 @@ This project is a demo for commons issues when running java applications on dock
 
 These topics are covered:
 
-. link:memory-sample/README.md[Memory allocation]
-. CPU and Threads 
-. Random numbers and security
-. Debugging applications inside containers
-. Integration tests
+1. [Memory allocation][memory-sample/README.md]
+2. CPU and Threads 
+3. Random numbers and security
+4. Debugging applications inside containers
+5. Integration tests
