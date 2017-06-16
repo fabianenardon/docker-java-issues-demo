@@ -20,7 +20,7 @@ debugging-sample   latest              f13295b35871        2 minutes ago       6
 
 Open the project in your IDE and set a breakpoint. For example:
 
-[Netbeans with breakpoint](https://raw.githubusercontent.com/fabianenardon/docker-java-issues-demo/master/debugging-sample/images/debug1.png)
+![Netbeans with breakpoint](https://raw.githubusercontent.com/fabianenardon/docker-java-issues-demo/master/debugging-sample/images/debug1.png)
 
 Then, run the application inside Docker with the debugging instruction:
 
@@ -34,8 +34,8 @@ The JAVA_OPTIONS variable is defined in our `pom.xml` in the image definition. T
 
 Go to the IDE and attach the debug to the application, using port 5005 in this example:
 
-[Netbeans attaching debug](https://raw.githubusercontent.com/fabianenardon/docker-java-issues-demo/master/debugging-sample/images/debug2.png)
+![Netbeans attaching debug](https://raw.githubusercontent.com/fabianenardon/docker-java-issues-demo/master/debugging-sample/images/debug2.png)
 
-[Netbeans attaching debug with port](https://raw.githubusercontent.com/fabianenardon/docker-java-issues-demo/master/debugging-sample/images/debug3.png)
+![Netbeans attaching debug with port](https://raw.githubusercontent.com/fabianenardon/docker-java-issues-demo/master/debugging-sample/images/debug3.png)
 
 The application will run inside Docker and stop at your breakpoint.
