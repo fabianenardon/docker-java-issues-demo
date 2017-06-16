@@ -6,5 +6,5 @@ These topics are covered:
 1. [Memory allocation](https://github.com/fabianenardon/docker-java-issues-demo/tree/master/memory-sample)
 2. CPU and Threads 
 3. Random numbers and security
-4. Debugging applications inside containers
+4. [Debugging applications inside containers](https://github.com/fabianenardon/docker-java-issues-demo/tree/master/debugging-sample)
 5. Integration tests
