@@ -7,4 +7,4 @@ These topics are covered:
 2. CPU and Threads 
 3. Random numbers and security
 4. [Debugging applications inside containers](https://github.com/fabianenardon/docker-java-issues-demo/tree/master/debugging-sample)
-5. Integration tests
+5. [Integration tests](https://github.com/fabianenardon/docker-java-issues-demo/tree/master/integration-tests-sample)

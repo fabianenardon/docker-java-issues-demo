@@ -1,0 +1,197 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.mycompany</groupId>
+  <artifactId>integration-tests-sample</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>integration-tests-sample</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+        
+        <dependency>
+            <groupId>org.mongodb.morphia</groupId>
+            <artifactId>morphia</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+      
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+        
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                      <manifest>
+                        <mainClass>com.mycompany.integrationtests.sample.App</mainClass>
+                      </manifest>
+                    </archive>
+                    <descriptorRefs>
+                      <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                  </configuration>
+                  <executions>
+                    <execution>
+                      <id>make-assembly</id> 
+                      <phase>package</phase> 
+                      <goals>
+                        <goal>single</goal>
+                      </goals>
+                    </execution>
+                  </executions>
+            </plugin>
+            
+        </plugins>
+    </build>
+    
+    <profiles>
+        <profile>
+            <!-- Generates the app docker image for execution -->
+            <id>app-docker-image</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.20.0</version>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>integration-tests-sample</name>
+                                    <build>
+                                        <from>openjdk:latest</from>
+                                        <assembly>
+                                            <descriptorRef>project</descriptorRef>
+                                            <inline>
+                                                <fileSets>
+                                                    <fileSet>
+                                                        <directory>${basedir}/target</directory>
+                                                        <includes>
+                                                            <include>integration-tests-sample-1.0-SNAPSHOT-jar-with-dependencies.jar</include>
+                                                        </includes>
+                                                        <outputDirectory>/jar</outputDirectory>
+                                                    </fileSet>
+                                                </fileSets>
+                                            </inline>
+                                        </assembly>
+                                    </build>
+                                </image>
+                                
+                                <!-- CREATES IMAGE FOR TESTING -->
+                                <image>
+                                    <name>integration-tests-sample-tests</name>
+                                    <build>
+                                        <from>maven:latest</from>
+                                        <ports> 
+                                            <!-- For remote testing -->
+                                            <port>5005</port>
+                                        </ports>
+                                        <assembly>
+                                            <descriptorRef>project</descriptorRef>
+                                            <inline>
+                                                <fileSets>
+                                                   <fileSet>
+                                                        <directory>${basedir}/src</directory>
+                                                        <includes>
+                                                            <include>**/**</include>
+                                                        </includes>
+                                                        <outputDirectory>code/src</outputDirectory>
+                                                    </fileSet>
+                                                    <fileSet>
+                                                        <directory>${basedir}</directory>
+                                                        <includes>
+                                                            <include>pom.xml</include>
+                                                        </includes>
+                                                        <outputDirectory>code</outputDirectory>
+                                                    </fileSet>
+                                                    <fileSet>
+                                                        <directory>${basedir}/src/test/resources</directory>
+                                                        <includes>
+                                                            <include>settings.xml</include>
+                                                        </includes>
+                                                        <outputDirectory>/m2</outputDirectory>
+                                                    </fileSet>
+                                                </fileSets>
+                                            </inline>
+                                        </assembly>
+                                        <volumes>
+                                            <volume>/m2</volume>
+                                        </volumes>
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>docker-build</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>integration-test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.19.1</version>
+                        <executions>
+                            <execution>
+                                <id>integration-test</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>verify</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    
+</project>

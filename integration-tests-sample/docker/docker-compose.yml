@@ -1,0 +1,15 @@
+version: '3'
+services:
+  mongo:
+    image: library/mongo:3.2.12
+    hostname: mongo
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/mongodb:/data/db
+  integration-tests-sample:
+      image: integration-tests-sample:latest
+      container_name: integration-tests-sample
+      links:
+          - mongo

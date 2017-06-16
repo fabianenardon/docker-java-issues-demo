@@ -1,0 +1,18 @@
+
+version: '3'
+services:
+  mongo:
+    image: library/mongo:3.2.12
+    hostname: mongo
+    ports:
+      - "27017"
+  integration-tests-sample:
+      image: integration-tests-sample:latest
+      links:
+          - mongo
+  integration-tests-sample-tests:
+      image: integration-tests-sample-tests:latest
+      volumes:
+          - ~/.m2/repository:/m2/repository
+      links:
+          - mongo
