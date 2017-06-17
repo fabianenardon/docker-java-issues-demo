@@ -28,7 +28,7 @@ Requesting 2 random bytes
 ```
 
 
-To fix this blicking issue, you have a few options:
+To fix this blocking issue, you have a few options:
 
 1. Edit $JAVA_HOME/jre/lib/security/java.security and change the default blocking securerandom.strongAlgorithms to NativePRNGNonBlocking:SUN
 
@@ -50,3 +50,16 @@ Debian/Ubuntu: apt-get install haveged
 RHEL/CentOS/Fedora: yum install haveged
 ```
 
+After making one of above changes, you should not have a blocking issue:
+
+```
+$ docker run entropy-sample
+Jun 17, 2017 7:41:25 PM com.mycompany.entropy.sample.App main
+INFO:
+Requesting 2 random bytes
+
+[89, -55]
+
+Jun 17, 2017 7:41:25 PM com.mycompany.entropy.sample.App main
+INFO: Took 56 ms
+```
