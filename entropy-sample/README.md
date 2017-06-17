@@ -3,6 +3,11 @@ This project is a demo for common entropy issues faced when running Java applica
 
 ## How to run the demo
 
+Build custom openjdk-nonblocking:
+```
+docker build ../docker-images/openjdk-nonblocking/ -t openjdk-nonblocking:latest
+```
+
 Build the project:
 
 ```
