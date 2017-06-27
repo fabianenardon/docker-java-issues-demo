@@ -9,8 +9,10 @@ These topics are covered:
 4. [Debugging applications inside containers](./debugging-sample)
 5. [Integration tests](./integration-tests-sample)
 
-References:
+## References:
+
 Several topics covered on these demos were derived from:
+
 - Conversations with Elijah Zupancic (@shitsukoisaru)
 - [Java inside docker: What you must know to not FAIL, by Rafael Benevides]
 (https://developers.redhat.com/blog/2017/03/14/java-inside-docker/)
