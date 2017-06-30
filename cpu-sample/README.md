@@ -3,7 +3,7 @@ This project is a demo for common cpu issues faced when running Java application
 
 ## How to run the demo
 
-Build custom openjdk-numcpus-lib image:
+Build the custom openjdk-numcpus-lib image:
 ```
 docker build ../docker-images/openjdk-numcpus-lib/ -t openjdk-numcpus-lib:latest
 ```
@@ -24,7 +24,7 @@ cpu-sample               latest              xxxxxxxxxxxx        5 seconds ago  
 cpu-sample-numcpus-lib   latest              xxxxxxxxxxxx        5 seconds ago       610 MB
 ```
 
-If you run a container inside Docker, it will use the number of CPUs of the HOST machine to calculate how many thread it can use in parallel, even if you limite the CPUs with --cpus, because the application relies on Runtime.getRuntime().availableProcessors()
+If you run a container inside Docker, it will use the number of CPUs from the HOST machine to calculate how many threads it can use in parallel, even if you limit the CPUs with --cpus, because the application relies on Runtime.getRuntime().availableProcessors() and the JVM is not aware of the --cpus switch.
 
 ```
 > docker run -e LOOP=2 --cpus=2 cpu-sample
@@ -43,7 +43,7 @@ To fix this cpu issue, you have two options:
 1. Change your application to not rely on Runtime.getRuntime().availableProcessors() to calculate available CPUs
 
 or
-2. Use a custom LD_PRELOAD library to override the JVM default behavior and change the number of available CPUs. This is usefull if you can not change the application. 
+2. Use a custom LD_PRELOAD library to override the JVM default behavior and change the number of available CPUs. This is useful if you can not change the application. 
 
 [cpu-sample-numcpus-lib](../docker-images/openjdk-numcpus-lib/)
 Image  has a custom LD_PRELOAD already compiled and an environment variable exported.

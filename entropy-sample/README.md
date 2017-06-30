@@ -23,7 +23,7 @@ REPOSITORY         TAG                 IMAGE ID            CREATED             S
 entropy-sample     latest              xxxxxxxxxxxx        5 seconds ago       610 MB
 ```
 
-If you run a container using a Doker inside a host with low entropy, the application will block until the host system has enough entropy:
+If you run a container using a Docker inside a host with low entropy, the application will block until the host system has enough entropy:
 
 ```
 > docker run entropy-sample
