@@ -29,7 +29,7 @@ The application will print how much memory it is using. You will notice that Doc
 To fix this, run the application like this:
 
 ```
-> docker run --memory 100M -e JAVA_OPTIONS='-Xmx100m' memory-sample
+> docker run --memory 100M -e JAVA_OPTIONS='-Xmx64m' memory-sample
 ```
 
 
