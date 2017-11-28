@@ -36,7 +36,7 @@ To fix this, run the application like this:
 As of Java 8u131 there is now an experimental VM option so the JVM is aware of the --memory switch used by Docker:
 
 ```
-> docker run --memory 100M -e JAVA_OPTIONS='-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap' memory-sample
+> docker run --memory 100M -e JAVA_OPTIONS='-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=1' memory-sample
 ```
 
 The JAVA_OPTION variable is defined in our pom.xml, when the image is created.
